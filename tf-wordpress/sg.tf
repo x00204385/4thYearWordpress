@@ -69,9 +69,9 @@ resource "aws_security_group" "allow-https" {
   }
 }
 
-resource "aws_security_group" "allow-msql" {
+resource "aws_security_group" "allow-msql2" {
   vpc_id      = aws_vpc.main.id
-  name        = "allow-mysql"
+  name        = "allow-mysql2"
   description = "security group that allows msql and all egress traffic"
   egress {
     from_port   = 0
