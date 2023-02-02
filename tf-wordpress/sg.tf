@@ -17,7 +17,7 @@ resource "aws_security_group" "allow-ssh" {
   }
   tags = {
     Name = "allow-ssh"
-    Name = "wordpress-POC"
+    Purpose  = "wordpress-POC"
   }
 }
 
@@ -41,7 +41,7 @@ resource "aws_security_group" "allow-http" {
   }
   tags = {
     Name = "allow-http"
-    Name = "wordpress-POC"
+    Purpose  = "wordpress-POC"
   }
 }
 
@@ -65,7 +65,7 @@ resource "aws_security_group" "allow-https" {
   }
   tags = {
     Name = "allow-https"
-    Name = "wordpress-POC"
+    Purpose  = "wordpress-POC"
   }
 }
 
@@ -88,6 +88,6 @@ resource "aws_security_group" "allow-msql" {
   }
   tags = {
     Name = "allow-mysql"
-    Name = "wordpress-POC"
+    Purpose  = "wordpress-POC"
   }
 }

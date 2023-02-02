@@ -11,7 +11,7 @@ variable "instance-ami" {
 }
 
 variable "db_username" {
-  default = "admin"
+  default = "wp_user"
 }
 
 variable "db_password" {
