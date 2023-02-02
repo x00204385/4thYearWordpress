@@ -4,9 +4,9 @@ Proof of concept work on installing Wordpress on AWS
 Added rds.tf which creates a MySQL RDS instance with the wp database and wp_user. Tested setup of Wordpress on an EC2 instance running in 
 a public subnet. Steps required:
 - Run terraform apply to create the required infrastructure
-- Login to instance and install required software: 
--  sudo apt install -y apache2
+- Login to instance and install required software:  
 ```
+sudo apt install -y apache2
 sudo apt install -y php libapache2-mod-php php-mysql
 sudo apt install -y mysql-server
 sudo mysql -h wp-rdsdb.cwfnq7dkyjal.eu-west-1.rds.amazonaws.com -u wp_user -p
