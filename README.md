@@ -5,15 +5,17 @@ Added rds.tf which creates a MySQL RDS instance with the wp database and wp_user
 a public subnet. Steps required:
 - Run terraform apply to create the required infrastructure
 - Login to instance and install required software: 
--   12  sudo apt install -y apache2
-   13  sudo apt install -y php libapache2-mod-php php-mysql
-   14  sudo apt install -y mysql-server
-   15  sudo mysql -h wp-rdsdb.cwfnq7dkyjal.eu-west-1.rds.amazonaws.com -u wp_user -p
-   16  cd /tmp
-   17  wget https://wordpress.org/latest.tar.gz
-   18  tar xvf latest.tar.gz
-   19  sudo mv wordpress/ /var/www/html/
-   20  cd /var/www/html/
-   21  ls
-   22  cd wordpress/
-   23  sudo cp wp-config-sample.php wp-config.php
+-  sudo apt install -y apache2
+`
+sudo apt install -y php libapache2-mod-php php-mysql
+sudo apt install -y mysql-server
+sudo mysql -h wp-rdsdb.cwfnq7dkyjal.eu-west-1.rds.amazonaws.com -u wp_user -p
+cd /tmp
+wget https://wordpress.org/latest.tar.gz
+tar xvf latest.tar.gz
+sudo mv wordpress/ /var/www/html/
+cd /var/www/html/wordpress
+sudo cp wp-config-sample.php wp-config.php
+`
+- Edit wp-config.php and add the configuration data
+- In a browser, go to the wordpress site and install. Check that you can login and that posts update the database
