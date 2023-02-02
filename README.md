@@ -6,7 +6,7 @@ a public subnet. Steps required:
 - Run terraform apply to create the required infrastructure
 - Login to instance and install required software: 
 -  sudo apt install -y apache2
-`
+```
 sudo apt install -y php libapache2-mod-php php-mysql
 sudo apt install -y mysql-server
 sudo mysql -h wp-rdsdb.cwfnq7dkyjal.eu-west-1.rds.amazonaws.com -u wp_user -p
@@ -16,6 +16,6 @@ tar xvf latest.tar.gz
 sudo mv wordpress/ /var/www/html/
 cd /var/www/html/wordpress
 sudo cp wp-config-sample.php wp-config.php
-`
+```
 - Edit wp-config.php and add the configuration data
 - In a browser, go to the wordpress site and install. Check that you can login and that posts update the database
