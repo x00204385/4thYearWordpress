@@ -19,3 +19,5 @@ sudo cp wp-config-sample.php wp-config.php
 ```
 - Edit wp-config.php and add the configuration data (username, db name, db password)
 - In a browser, go to the wordpress site and install. Check that you can login and that posts update the database
+# 14-February
+Small refinements to above. Used for screencast of progress so far.
