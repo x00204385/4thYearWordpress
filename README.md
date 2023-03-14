@@ -21,3 +21,15 @@ sudo cp wp-config-sample.php wp-config.php
 - In a browser, go to the wordpress site and install. Check that you can login and that posts update the database
 # 14-February
 Small refinements to above. Used for screencast of progress so far. Fixed bugs where user_data was not getting applied.
+# 14-March
+Simpler setup as the terraform installation configures what we need.
+```
+sudo mysql -h wp-rdsdb.cwfnq7dkyjal.eu-west-1.rds.amazonaws.com -u wp_user -p
+cd /var/www/html/wordpress
+sudo cp wp-config-sample.php wp-config.php
+```
+- Edit wp-config.php and add the configuration data (username, db name, db password)
+- In a browser, go to the wordpress site and install. Check that you can login and that posts update the database
+
+
+
