@@ -24,6 +24,7 @@ Small refinements to above. Used for screencast of progress so far. Fixed bugs w
 # 14-March
 Simpler setup as the terraform installation configures what we need.
 ```
+ssh -i key.pem ubuntu@ip_address
 sudo mysql -h wp-rdsdb.cwfnq7dkyjal.eu-west-1.rds.amazonaws.com -u wp_user -p
 cd /var/www/html/wordpress
 sudo cp wp-config-sample.php wp-config.php
