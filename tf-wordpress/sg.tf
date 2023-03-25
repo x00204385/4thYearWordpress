@@ -91,3 +91,30 @@ resource "aws_security_group" "allow-msql2" {
     Purpose  = "wordpress-POC"
   }
 }
+
+resource "aws_security_group" "allow-efs" {
+  vpc_id      = aws_vpc.main.id
+  name        = "allow-efs"
+  description = "EFS security group allow access to port 2049"
+
+  ingress {
+    description = "allow inbound NFS traffic"
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    description = "Allow all egress"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow-efs"
+    Purpose  = "wordpress-POC"
+  }
+}

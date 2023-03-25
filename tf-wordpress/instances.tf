@@ -11,12 +11,13 @@ locals {
 }
 
 resource "aws_instance" "wordpressinstance" {
-  count                  = 1
+  count                  = length(local.public_subnets)
   ami                    = var.instance-ami
   instance_type          = "t2.micro"
-  subnet_id              = aws_subnet.public-subnet-1a.id
+  subnet_id              = local.public_subnets[count.index]
   key_name               = "tud-aws"
-  vpc_security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.allow-http.id, aws_security_group.allow-https.id]
+  vpc_security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.allow-http.id, 
+                            aws_security_group.allow-https.id, aws_security_group.allow-efs.id]
 
   tags = {
     Name = "wordpress-instance"
@@ -32,6 +33,8 @@ cd /tmp
 wget https://wordpress.org/latest.tar.gz
 tar xf latest.tar.gz
 sudo mv wordpress /var/www/html
+sudo chmod -R 755 /var/www/html/
+sudo chmod -R 755 /var/www/html/
 EOF
 }
 
