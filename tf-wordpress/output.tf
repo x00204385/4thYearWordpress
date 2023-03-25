@@ -6,3 +6,7 @@ output "instance_dns" {
   value = join(",", aws_instance.wordpressinstance.*.public_dns)
 }
 
+output "rds_endpoint" {
+  value = "${aws_db_instance.wordpress-rds.endpoint}"
+}
+
