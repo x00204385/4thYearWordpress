@@ -1,5 +1,5 @@
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = "10.0.0.0/16"
   instance_tenancy     = "default"
   enable_dns_support   = "true"
   enable_dns_hostnames = "true"
@@ -15,7 +15,7 @@ resource "aws_subnet" "public-subnet-1a" {
   availability_zone       = "eu-west-1a"
 
   tags = {
-    Name = "public-subnet-1a"
+    Name    = "public-subnet-1a"
     Purpose = "wordpress-POC"
   }
 }
@@ -27,7 +27,7 @@ resource "aws_subnet" "private-subnet-1a" {
   availability_zone       = "eu-west-1a"
 
   tags = {
-    Name = "private-subnet-1a"
+    Name    = "private-subnet-1a"
     Purpose = "wordpress-POC"
   }
 }
@@ -39,7 +39,7 @@ resource "aws_subnet" "public-subnet-1b" {
   availability_zone       = "eu-west-1b"
 
   tags = {
-    Name = "public-subnet-1b"
+    Name    = "public-subnet-1b"
     Purpose = "wordpress-POC"
   }
 }
@@ -51,7 +51,7 @@ resource "aws_subnet" "private-subnet-1b" {
   availability_zone       = "eu-west-1b"
 
   tags = {
-    Name = "private-subnet-1b"
+    Name    = "private-subnet-1b"
     Purpose = "wordpress-POC"
   }
 }
@@ -59,7 +59,7 @@ resource "aws_internet_gateway" "internet-gw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "internet-gw"
+    Name    = "internet-gw"
     Purpose = "wordpress-POC"
   }
 }

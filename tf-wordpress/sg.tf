@@ -16,8 +16,8 @@ resource "aws_security_group" "allow-ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "allow-ssh"
-    Purpose  = "wordpress-POC"
+    Name    = "allow-ssh"
+    Purpose = "wordpress-POC"
   }
 }
 
@@ -40,8 +40,8 @@ resource "aws_security_group" "allow-http" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "allow-http"
-    Purpose  = "wordpress-POC"
+    Name    = "allow-http"
+    Purpose = "wordpress-POC"
   }
 }
 
@@ -64,8 +64,8 @@ resource "aws_security_group" "allow-https" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "allow-https"
-    Purpose  = "wordpress-POC"
+    Name    = "allow-https"
+    Purpose = "wordpress-POC"
   }
 }
 
@@ -87,8 +87,8 @@ resource "aws_security_group" "allow-msql2" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "allow-mysql"
-    Purpose  = "wordpress-POC"
+    Name    = "allow-mysql"
+    Purpose = "wordpress-POC"
   }
 }
 
@@ -114,7 +114,7 @@ resource "aws_security_group" "allow-efs" {
   }
 
   tags = {
-    Name = "allow-efs"
-    Purpose  = "wordpress-POC"
+    Name    = "allow-efs"
+    Purpose = "wordpress-POC"
   }
 }

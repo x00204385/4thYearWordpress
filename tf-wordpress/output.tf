@@ -10,3 +10,6 @@ output "rds_endpoint" {
   value = "${aws_db_instance.wordpress-rds.endpoint}"
 }
 
+output "lb_endpoint" {
+  value = "${aws_lb.tudproj-LB.dns_name}"
+}
