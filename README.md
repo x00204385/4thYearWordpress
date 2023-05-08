@@ -36,3 +36,7 @@ sudo cp wp-config-sample.php wp-config.php
 
 # 25-March
 Some minor additions and bug fixes. Confirmed working config. Can just connect to load balancer entry and wordpress comes up.
+
+# 8-May
+Start work to deploy to new region. Just verify that code is working.
+
