@@ -40,3 +40,5 @@ Some minor additions and bug fixes. Confirmed working config. Can just connect t
 # 8-May
 Start work to deploy to new region. Just verify that code is working.
 
+# 29-May
+Implemented repeatable infrastructure deployment in two regions using the same code with variable files (*.tfvars) used to define the regional variations. Implemented Route 53 failover routing. Also implemented an autoscaling group with a launch configuration. Required a new IAM role to be created so that instances in ASG can do service discovery. 
