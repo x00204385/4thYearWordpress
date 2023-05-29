@@ -2,6 +2,10 @@
 resource "aws_efs_file_system" "wordpress-efs" {
   creation_token = "wordpress-POC"
   encrypted      = false
+
+  tags = {
+    Name = "wordpress-efs"
+  }
 }
 
 resource "aws_efs_mount_target" "wordpress-mt" {

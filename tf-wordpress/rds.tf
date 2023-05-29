@@ -19,7 +19,7 @@ resource "aws_security_group" "allow-mysql" {
 resource "aws_security_group_rule" "mysql_inbound_access" {
   from_port         = 3306
   protocol          = "tcp"
-  security_group_id = "${aws_security_group.allow-mysql.id}"
+  security_group_id = aws_security_group.allow-mysql.id
   to_port           = 3306
   type              = "ingress"
   cidr_blocks       = ["0.0.0.0/0"]
@@ -29,22 +29,22 @@ resource "aws_security_group_rule" "mysql_inbound_access" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance
 #
 resource "aws_db_instance" "wordpress-rds" {
-  allocated_storage    = 20
-  db_name              = "wp"
-  identifier           = "wp-rdsdb"
-  engine               = "mysql"
-  engine_version       = "8.0"
-  storage_type         = "gp2"
-  instance_class       = "db.t3.micro"
-  username             = var.db_username
-  password             = var.db_password
-  skip_final_snapshot  = true
-  db_subnet_group_name = "wordpress-db-subnetgroup"
+  allocated_storage      = 20
+  db_name                = "wp"
+  identifier             = "wp-rdsdb"
+  engine                 = "mysql"
+  engine_version         = "8.0"
+  storage_type           = "gp2"
+  instance_class         = "db.t3.micro"
+  username               = var.db_username
+  password               = var.db_password
+  skip_final_snapshot    = true
+  db_subnet_group_name   = "wordpress-db-subnetgroup"
   vpc_security_group_ids = ["${aws_security_group.allow-mysql.id}"]
-  publicly_accessible  = true
+  publicly_accessible    = true
 
   depends_on = [aws_db_subnet_group.wordpress-db-subnetgroup, aws_internet_gateway.internet-gw]
-  
+
   tags = {
     Name = "wordpress-internet-gw"
   }
