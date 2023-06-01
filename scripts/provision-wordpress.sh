@@ -3,7 +3,7 @@
 # Mount EFS share and identify RDS end point
 #
 sudo apt update
-sudo apt install -y nfs-common zip jq awscli
+sudo apt install -y nfs-common zip jq awscli stress
 #
 # Mount the EFS file system
 #
