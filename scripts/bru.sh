@@ -9,28 +9,28 @@ region=$(curl -s http://169.254.169.254/latest/meta-data/placement/region)
 # Find the RDS instance
 rds_endpoint=$(aws rds describe-db-instances --region $region --query 'DBInstances[*].Endpoint.Address' --output text)
 
-
 bucket="s3://wpbackup-x00204385"
 
 timestamp=$(date +"%Y%m%d%H%M%S")
 
-backup_file=/tmp/wp_backup_${timestamp}.sql
+backup_file_basename=wp_backup
+backup_file=/tmp/${backup_file_basename}
 
+restore_file=${backup_file}
 
-backup_cmd="mysqldump --set-gtid-purged=OFF -h ${rds_endpoint} -u wp_user -pComputing1 wp >${backup_file}"
+backup_cmd="/usr/bin/mysqldump --set-gtid-purged=OFF -h ${rds_endpoint} -u wp_user -pComputing1 wp >${backup_file}"
 
-restore_cmd="mysql -h ${rds_endpoint} -u wp_user -pComputing1 < ${restore_file}"
+restore_cmd="mysql -h ${rds_endpoint} -u wp_user -pComputing1 wp < ${restore_file}"
 
 case "$region" in
 "eu-west-1")
     (
-        echo "*/15 * * * * $backup_cmd && aws s3 cp $backup_file $bucket/"
+        echo "*/5 * * * * $backup_cmd && aws s3 cp $backup_file $bucket/"
     ) | crontab -
     ;;
-"us-east-1") ;;
-*)
+"us-east-1")
     (
-        echo "*/15 * * * * aws s3 cp $bucket/ && $restore_cmd /"
+        echo "6-59/6 * * * * aws s3 cp $bucket/${backup_file_basename} /tmp && $restore_cmd"
     ) | crontab -
-    ;;    ;;
+    ;;
 esac

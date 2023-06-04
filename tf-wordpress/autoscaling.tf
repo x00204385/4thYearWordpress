@@ -47,7 +47,6 @@ resource "aws_autoscaling_group" "wpASG" {
     value               = "wordpress-asg-instance"
     propagate_at_launch = true
   }
-
 }
 
 

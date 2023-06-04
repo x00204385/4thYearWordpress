@@ -6,7 +6,7 @@ resource "aws_instance" "wordpressinstance" {
   ami           = var.instance-ami
   instance_type = "t2.micro"
   subnet_id     = local.public_subnets[0]
-  key_name      = "tud-aws"
+  key_name      = var.key-pair
   vpc_security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.allow-mysql.id]
 
   iam_instance_profile = "WordpressInstanceRole"

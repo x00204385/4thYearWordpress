@@ -2,6 +2,8 @@
 #
 # Mount EFS share and identify RDS end point
 #
+# Install required utilities
+#
 sudo apt update
 sudo apt install -y nfs-common zip jq awscli stress
 #
@@ -12,12 +14,16 @@ region=$(curl -s http://169.254.169.254/latest/meta-data/placement/region)
 efs_dns_name=$(aws efs describe-file-systems --region $region | jq -r ".FileSystems[].FileSystemId")
 #
 mount_point="${efs_dns_name}.efs.${region}.amazonaws.com"
+#
 sudo mkdir -p /var/www/html
 sudo mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport $mount_point:/ /var/www/html
 #
 # Find the RDS instance
 #
 rds_endpoint=$(aws rds describe-db-instances --region $region --query 'DBInstances[*].Endpoint.Address' --output text)
+#
+# Record this for debugging purposes
+#
 echo ${rds_endpoint} >/tmp/dbendpoint.out
 #
 # Install wordpress and associated software
