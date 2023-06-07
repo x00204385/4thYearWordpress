@@ -12,6 +12,10 @@ resource "aws_db_subnet_group" "wordpress-db-subnetgroup" {
 resource "aws_security_group" "allow-mysql" {
   name   = "allow-mysql"
   vpc_id = aws_vpc.main.id
+  tags = {
+    Name    = "allow-mysql"
+    Purpose = "wordpress-POC"
+  }
 
 }
 

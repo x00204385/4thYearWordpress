@@ -1,12 +1,12 @@
 # 
 # Instance to run the backup of the wp database
 #
-resource "aws_instance" "wordpressinstance" {
+resource "aws_instance" "bastion" {
   # count         = length(local.public_subnets)
-  ami           = var.instance-ami
-  instance_type = "t2.micro"
-  subnet_id     = local.public_subnets[0]
-  key_name      = var.key-pair
+  ami                    = var.instance-ami
+  instance_type          = "t2.micro"
+  subnet_id              = local.public_subnets[0]
+  key_name               = var.key-pair
   vpc_security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.allow-mysql.id]
 
   iam_instance_profile = "WordpressInstanceRole"
@@ -16,7 +16,7 @@ resource "aws_instance" "wordpressinstance" {
   depends_on = [aws_db_instance.wordpress-rds]
 
   tags = {
-    Name = "wordpress-backup"
+    Name = "wordpress-bastion"
   }
 }
 

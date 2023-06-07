@@ -1,6 +1,6 @@
 output "instance_ips" {
   description = "IP address of the backup instance"
-  value = join(",", aws_instance.wordpressinstance.*.public_ip)
+  value       = join(",", aws_instance.bastion.*.public_ip)
 }
 
 # output "instance_dns" {
@@ -29,12 +29,12 @@ output "asg_name" {
 }
 
 output "primary_nacl" {
-  value = aws_vpc.main.default_network_acl_id
+  value       = aws_vpc.main.default_network_acl_id
   description = "The ID of the default network ACL in the VPC"
 
 }
 
 output "vpc_id" {
-  value = aws_vpc.main.id
+  value       = aws_vpc.main.id
   description = "Id of the VPC that was created"
 }
