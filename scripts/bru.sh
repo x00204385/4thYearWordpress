@@ -30,7 +30,7 @@ case "$region" in
     ;;
 "us-east-1")
     (
-        echo "6/5 * * * * aws s3 cp $bucket/${backup_file_basename} /tmp && $restore_cmd"
+        echo "6-59/5 * * * * aws s3 cp $bucket/${backup_file_basename} /tmp && $restore_cmd"
     ) | crontab -
     ;;
 esac
