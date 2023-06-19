@@ -5,6 +5,7 @@ kubectl apply -f efs-service-account.yaml
 
 # Kubernetes dashboard deployment
 ```sh
+kubectl apply -f eks-admin-service-account.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
 kubectl create token eks-admin -n kube-system | pbcopy
 kubectl proxy
