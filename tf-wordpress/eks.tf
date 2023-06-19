@@ -54,7 +54,7 @@ resource "null_resource" "update_kubeconfig" {
     command     = <<EOT
       set -e
       echo 'Applying Auth ConfigMap with kubectl...'
-      aws eks wait cluster-active --name '${local.cluster_name}'
+      aws eks wait cluster-active --name '${local.cluster_name}' --region=${var.region}
       aws eks update-kubeconfig --name '${local.cluster_name}' --region=${var.region}
     EOT
   }
