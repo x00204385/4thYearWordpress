@@ -2,6 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wordpress
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
   labels:
     app: wordpress
 spec:
@@ -32,7 +36,7 @@ spec:
   storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-089f5063f5f0216bc::fsap-0b7a7e33b63893bed
+    volumeHandle: fs-0ce91cb4b8eea75cc::fsap-0386c7c508398ff18
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

@@ -77,6 +77,20 @@ Also you can verify that data is written onto EFS filesystem:
 ```sh
 kubectl exec -ti efs-app -- tail -f /data/out
 ```
+# Load balancer provisioning
+
+```sh
+kubectl apply -f load_balancer
+```
+
+Verify in the AWS console that the load balancer has been created and that the target group is routing to the pod addresses directly.
+
+```sh
+kubectl get pods -n 6-example -o wide
+kubectl get svc -n 6-example -o wide
+```
+
+Visit the address pointed to by the service.
 
 # Deploying Wordpress
 Based on [tutorial](https://aws.amazon.com/blogs/storage/running-wordpress-on-amazon-eks-with-amazon-efs-intelligent-tiering/)
@@ -86,5 +100,7 @@ Based on [tutorial](https://aws.amazon.com/blogs/storage/running-wordpress-on-am
 -    Deploy the pods (MySQL and Wordpress)
 
 ```sh
-kubectl apply -k wp
+kubectl apply -f wordpress-deployment.yaml
 ```
+
+

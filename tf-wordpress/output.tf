@@ -43,3 +43,7 @@ output "efs_id" {
   value       = aws_efs_file_system.eks-efs.id
   description = "EFS ID for use with EKS PVCs"
 }
+
+output "aws_load_balancer_controller_arn" {
+  value       = aws_iam_role.aws_load_balancer_controller.arn
+}

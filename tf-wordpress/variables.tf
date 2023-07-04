@@ -6,6 +6,10 @@ variable "region" {
   default = "eu-west-1"
 }
 
+variable "eks_cluster_name" {
+  default = "demo"
+}
+
 variable "primary" {
   type        = bool
   description = "Determine whether this is the primary or standby region"
