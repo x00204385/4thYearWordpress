@@ -53,3 +53,9 @@ variable "db_password" {
   default = "Computing1"
 }
 
+variable "enable_nat_gateway" {
+  description = "Enable NAT gateway for VPC"
+  type        = bool
+  default     = true
+}
+

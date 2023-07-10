@@ -1,7 +1,8 @@
 
 resource "aws_db_subnet_group" "wordpress-db-subnetgroup" {
   name       = "wordpress-db-subnetgroup"
-  subnet_ids = [aws_subnet.private-subnet-1a.id, aws_subnet.private-subnet-1b.id]
+  # subnet_ids = [aws_subnet.private-subnet-1a.id, aws_subnet.private-subnet-1b.id]
+  subnet_ids = module.vpc.private_subnets
 
   tags = {
     Name = "Wordpress DB subnet group"
@@ -11,7 +12,7 @@ resource "aws_db_subnet_group" "wordpress-db-subnetgroup" {
 
 resource "aws_security_group" "allow-mysql" {
   name   = "allow-mysql"
-  vpc_id = aws_vpc.main.id
+  vpc_id = module.vpc.vpc_id
   tags = {
     Name    = "allow-mysql"
     Purpose = "wordpress-POC"
@@ -47,7 +48,9 @@ resource "aws_db_instance" "wordpress-rds" {
   vpc_security_group_ids = ["${aws_security_group.allow-mysql.id}"]
   publicly_accessible    = true
 
-  depends_on = [aws_db_subnet_group.wordpress-db-subnetgroup, aws_internet_gateway.internet-gw]
+  # depends_on = [aws_db_subnet_group.wordpress-db-subnetgroup, aws_internet_gateway.internet-gw]
+  depends_on = [aws_db_subnet_group.wordpress-db-subnetgroup, module.vpc]
+
 
   tags = {
     Name = "wordpress-internet-gw"

@@ -42,10 +42,12 @@ resource "aws_eks_node_group" "private_nodes" {
   #   aws_subnet.private_us_east_1b.id
   # ]
 
-  subnet_ids = [
-    aws_subnet.public-subnet-1a.id,
-    aws_subnet.public-subnet-1b.id
-  ]
+  # subnet_ids = [
+  #   aws_subnet.public-subnet-1a.id,
+  #   aws_subnet.public-subnet-1b.id
+  # ]
+
+  subnet_ids = module.vpc.public_subnets
 
   capacity_type  = "ON_DEMAND"
   instance_types = ["t3.medium"]

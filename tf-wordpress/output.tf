@@ -11,9 +11,9 @@ output "rds_endpoint" {
   value = aws_db_instance.wordpress-rds.endpoint
 }
 
-# output "lb_endpoint" {
-#   value = aws_lb.tudproj-LB.dns_name
-# }
+output "lb_endpoint" {
+  value = aws_lb.tudproj-LB.dns_name
+}
 
 # output "efs_dns_name" {
 #   value = aws_efs_file_system.wordpress-efs.dns_name
@@ -29,13 +29,13 @@ output "rds_endpoint" {
 # }
 
 output "primary_nacl" {
-  value       = aws_vpc.main.default_network_acl_id
+  value       = module.vpc.default_network_acl_id
   description = "The ID of the default network ACL in the VPC"
 
 }
 
 output "vpc_id" {
-  value       = aws_vpc.main.id
+  value       = module.vpc.vpc_id
   description = "Id of the VPC that was created"
 }
 

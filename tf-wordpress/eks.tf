@@ -31,12 +31,13 @@ resource "aws_eks_cluster" "demo" {
   role_arn = aws_iam_role.demo.arn
 
   vpc_config {
-    subnet_ids = [
-      aws_subnet.public-subnet-1a.id,
-      aws_subnet.private-subnet-1a.id,
-      aws_subnet.public-subnet-1b.id,
-      aws_subnet.private-subnet-1b.id
-    ]
+    # subnet_ids = [
+    #   aws_subnet.public-subnet-1a.id,
+    #   aws_subnet.private-subnet-1a.id,
+    #   aws_subnet.public-subnet-1b.id,
+    #   aws_subnet.private-subnet-1b.id
+    # ]
+  subnet_ids = concat(module.vpc.public_subnets, module.vpc.private_subnets)
   }
 
   depends_on = [aws_iam_role_policy_attachment.demo_amazon_eks_cluster_policy]
