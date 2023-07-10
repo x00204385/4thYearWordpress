@@ -11,9 +11,9 @@ output "rds_endpoint" {
   value = aws_db_instance.wordpress-rds.endpoint
 }
 
-output "lb_endpoint" {
-  value = aws_lb.tudproj-LB.dns_name
-}
+# output "lb_endpoint" {
+#   value = aws_lb.tudproj-LB.dns_name
+# }
 
 # output "efs_dns_name" {
 #   value = aws_efs_file_system.wordpress-efs.dns_name
@@ -44,6 +44,16 @@ output "efs_id" {
   description = "EFS ID for use with EKS PVCs"
 }
 
-output "aws_load_balancer_controller_arn" {
-  value       = aws_iam_role.aws_load_balancer_controller.arn
+# output "aws_load_balancer_controller_arn" {
+#   value       = aws_iam_role.aws_load_balancer_controller.arn
+# }
+
+output "cluster_status" {
+  description = "Status of the EKS cluster. One of `CREATING`, `ACTIVE`, `DELETING`, `FAILED`"
+  value       = module.eks.cluster_status
+}
+
+output "cluster_name" {
+  description = "Name of the cluster"
+  value       = module.eks.cluster_name
 }

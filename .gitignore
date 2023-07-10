@@ -29,3 +29,8 @@ override.tf.json
 # example: *tfplan*
 .DS_Store
 .terraform.lock.hcl
+
+#
+# Exclude wp directory because the contents are generated automatically
+#
+wp/

@@ -38,3 +38,14 @@ module "vpc" {
   map_public_ip_on_launch = true
 
 }
+
+module eks {
+    source = "./modules/eks"
+
+    vpc_id = module.vpc.vpc_id
+    region = var.region
+    subnets = concat(local.public_subnets, local.private_subnets)
+    node_subnets = local.private_subnets
+    key-pair = "tud-aws"
+}
+
