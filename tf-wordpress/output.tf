@@ -1,5 +1,5 @@
-output "instance_ips" {
-  description = "IP address of the backup instance"
+output "bastion_instance_ips" {
+  description = "IP address of the bastion instance"
   value       = join(",", aws_instance.bastion.*.public_ip)
 }
 
@@ -9,6 +9,34 @@ output "instance_ips" {
 
 output "rds_endpoint" {
   value = aws_db_instance.wordpress-rds.endpoint
+}
+
+
+output "primary_nacl" {
+  value       = module.vpc.default_network_acl_id
+  description = "The ID of the default network ACL in the VPC"
+
+}
+
+output "vpc_id" {
+  value       = module.vpc.vpc_id
+  description = "Id of the VPC that was created"
+}
+
+output "efs_id" {
+  value       = aws_efs_file_system.eks-efs.id
+  description = "EFS ID for use with EKS PVCs"
+}
+
+
+output "cluster_status" {
+  description = "Status of the EKS cluster. One of `CREATING`, `ACTIVE`, `DELETING`, `FAILED`"
+  value       = module.eks.cluster_status
+}
+
+output "cluster_name" {
+  description = "Name of the cluster"
+  value       = module.eks.cluster_name
 }
 
 # output "lb_endpoint" {
@@ -28,32 +56,6 @@ output "rds_endpoint" {
 #   description = "Name of the auto scaling group"
 # }
 
-output "primary_nacl" {
-  value       = module.vpc.default_network_acl_id
-  description = "The ID of the default network ACL in the VPC"
-
-}
-
-output "vpc_id" {
-  value       = module.vpc.vpc_id
-  description = "Id of the VPC that was created"
-}
-
-output "efs_id" {
-  value       = aws_efs_file_system.eks-efs.id
-  description = "EFS ID for use with EKS PVCs"
-}
-
 # output "aws_load_balancer_controller_arn" {
 #   value       = aws_iam_role.aws_load_balancer_controller.arn
 # }
-
-output "cluster_status" {
-  description = "Status of the EKS cluster. One of `CREATING`, `ACTIVE`, `DELETING`, `FAILED`"
-  value       = module.eks.cluster_status
-}
-
-output "cluster_name" {
-  description = "Name of the cluster"
-  value       = module.eks.cluster_name
-}

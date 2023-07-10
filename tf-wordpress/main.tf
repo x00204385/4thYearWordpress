@@ -15,6 +15,7 @@ module "vpc" {
   private_subnets = var.private_subnet_cidr_blocks
   private_subnet_names = ["private-subnet-1a", "private-subnet-1b"]
   private_subnet_tags = {
+    # Required to support the AWS Load Balancer Controller
     "kubernetes.io/role/internal-elb"               = 1
     "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"
   }
@@ -22,6 +23,7 @@ module "vpc" {
   public_subnets  = var.public_subnet_cidr_blocks
   public_subnet_names = ["public-subnet-1a", "public-subnet-1b"]
   public_subnet_tags = {
+    # Required to support the AWS Load Balancer Controller
     "kubernetes.io/role/elb"                        = 1
     "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"
   }
