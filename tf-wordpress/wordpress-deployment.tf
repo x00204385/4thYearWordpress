@@ -87,7 +87,7 @@ spec:
         - name: WORDPRESS_DB_USER
           value: "${var.db_username}"
         - name: WORDPRESS_DB_NAME
-          value: "wp"
+          value: "wp2"
         ports:
         - containerPort: 80
           name: wordpress

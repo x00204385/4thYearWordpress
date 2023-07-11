@@ -39,9 +39,9 @@ output "cluster_name" {
   value       = module.eks.cluster_name
 }
 
-# output "lb_endpoint" {
-#   value = aws_lb.tudproj-LB.dns_name
-# }
+output "lb_endpoint" {
+  value = aws_lb.tudproj-LB.dns_name
+}
 
 # output "efs_dns_name" {
 #   value = aws_efs_file_system.wordpress-efs.dns_name
