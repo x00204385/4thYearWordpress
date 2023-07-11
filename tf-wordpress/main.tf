@@ -10,9 +10,9 @@ module "vpc" {
   name = "wp"
   cidr = var.vpc_cidr_block
 
-  azs             = var.availability_zones
+  azs = var.availability_zones
 
-  private_subnets = var.private_subnet_cidr_blocks
+  private_subnets      = var.private_subnet_cidr_blocks
   private_subnet_names = ["private-subnet-1a", "private-subnet-1b"]
   private_subnet_tags = {
     # Required to support the AWS Load Balancer Controller
@@ -20,7 +20,7 @@ module "vpc" {
     "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"
   }
 
-  public_subnets  = var.public_subnet_cidr_blocks
+  public_subnets      = var.public_subnet_cidr_blocks
   public_subnet_names = ["public-subnet-1a", "public-subnet-1b"]
   public_subnet_tags = {
     # Required to support the AWS Load Balancer Controller
@@ -29,8 +29,8 @@ module "vpc" {
   }
 
 
-  enable_nat_gateway = var.enable_nat_gateway
-  single_nat_gateway = true
+  enable_nat_gateway     = var.enable_nat_gateway
+  single_nat_gateway     = true
   one_nat_gateway_per_az = false
 
 
@@ -41,13 +41,29 @@ module "vpc" {
 
 }
 
-module eks {
-    source = "./modules/eks"
+module "eks" {
+  source = "./modules/eks"
 
-    vpc_id = module.vpc.vpc_id
-    region = var.region
-    subnets = concat(local.public_subnets, local.private_subnets)
-    node_subnets = local.private_subnets
-    key-pair = "tud-aws"
+  vpc_id       = module.vpc.vpc_id
+  region       = var.region
+  subnets      = concat(local.public_subnets, local.private_subnets)
+  node_subnets = local.private_subnets
+  key-pair     = "tud-aws"
 }
 
+
+module "asg" {
+  source = "./modules/asg"
+
+  vpc_id      = module.vpc.vpc_id
+  region      = var.region
+  lb_subnets  = local.public_subnets
+  asg_subnets = local.private_subnets
+
+  key-pair = "tud-aws"
+  security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.allow-http.id,
+  aws_security_group.allow-https.id]
+
+  depends_on = [aws_db_instance.wordpress-rds, aws_efs_file_system.wordpress-efs]
+
+}

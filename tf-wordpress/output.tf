@@ -40,7 +40,7 @@ output "cluster_name" {
 }
 
 output "lb_endpoint" {
-  value = aws_lb.tudproj-LB.dns_name
+  value = module.asg.lb_endpoint
 }
 
 # output "efs_dns_name" {

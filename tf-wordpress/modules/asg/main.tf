@@ -7,15 +7,14 @@ resource "aws_launch_configuration" "wordpress-LC" {
   instance_type = "t2.micro"
   key_name      = var.key-pair
 
-  security_groups = [aws_security_group.allow-ssh.id, aws_security_group.allow-http.id,
-  aws_security_group.allow-https.id]
+  security_groups = var.security_group_ids
 
   user_data = file("../scripts/provision-wordpress.sh")
 
   iam_instance_profile = "WordpressInstanceRole"
 
   # depends_on = [aws_db_instance.wordpress-rds, aws_efs_file_system.wordpress-efs, aws_nat_gateway.nat-gw]
-  depends_on = [aws_db_instance.wordpress-rds, aws_efs_file_system.wordpress-efs]
+  # depends_on = [aws_db_instance.wordpress-rds, aws_efs_file_system.wordpress-efs]
 
   lifecycle {
     create_before_destroy = true
@@ -29,7 +28,7 @@ resource "aws_autoscaling_group" "wpASG" {
   desired_capacity          = 2
   health_check_grace_period = 120
   launch_configuration      = aws_launch_configuration.wordpress-LC.name
-  vpc_zone_identifier       = local.public_subnets
+  vpc_zone_identifier       = var.asg_subnets
 
   lifecycle {
     ignore_changes = [desired_capacity, target_group_arns]

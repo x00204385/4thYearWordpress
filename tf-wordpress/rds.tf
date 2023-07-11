@@ -1,6 +1,6 @@
 
 resource "aws_db_subnet_group" "wordpress-db-subnetgroup" {
-  name       = "wordpress-db-subnetgroup"
+  name = "wordpress-db-subnetgroup"
   # subnet_ids = [aws_subnet.private-subnet-1a.id, aws_subnet.private-subnet-1b.id]
   subnet_ids = module.vpc.private_subnets
 

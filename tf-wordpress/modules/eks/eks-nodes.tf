@@ -30,22 +30,12 @@ resource "aws_iam_role_policy_attachment" "nodes_amazon_ec2_container_registry_r
 
 resource "aws_eks_node_group" "private_nodes" {
   cluster_name    = aws_eks_cluster.demo.name
-  node_group_name = "private-nodes"
+  node_group_name = "eks-nodes"
   node_role_arn   = aws_iam_role.nodes.arn
 
   remote_access {
     ec2_ssh_key = var.key-pair
   }
-
-  # subnet_ids = [
-  #   aws_subnet.private_us_east_1a.id,
-  #   aws_subnet.private_us_east_1b.id
-  # ]
-
-  # subnet_ids = [
-  #   aws_subnet.public-subnet-1a.id,
-  #   aws_subnet.public-subnet-1b.id
-  # ]
 
   subnet_ids = var.node_subnets
 
@@ -54,7 +44,7 @@ resource "aws_eks_node_group" "private_nodes" {
 
   scaling_config {
     desired_size = 2
-    max_size     = 5
+    max_size     = 6
     min_size     = 0
   }
 
