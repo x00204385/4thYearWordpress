@@ -47,7 +47,7 @@ module "eks" {
   vpc_id       = module.vpc.vpc_id
   region       = var.region
   subnets      = concat(local.public_subnets, local.private_subnets)
-  node_subnets = local.private_subnets
+  node_subnets = local.public_subnets
   key-pair     = "tud-aws"
 }
 
@@ -58,7 +58,7 @@ module "asg" {
   vpc_id      = module.vpc.vpc_id
   region      = var.region
   lb_subnets  = local.public_subnets
-  asg_subnets = local.private_subnets
+  asg_subnets = local.public_subnets
 
   key-pair = "tud-aws"
   security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.allow-http.id,

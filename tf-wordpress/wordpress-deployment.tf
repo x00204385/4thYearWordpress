@@ -76,7 +76,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: wordpress:php7.1-apache
+      - image: wordpress:6.2.2
         name: wordpress
         env:
         env:

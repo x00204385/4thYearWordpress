@@ -34,3 +34,6 @@ case "$region" in
     ) | crontab -
     ;;
 esac
+
+sudo mysql -u wp_user -pComputing1 -h ${rds_endpoint} -e "CREATE DATABASE wp2;"
+sudo mysql -u wp_user -pComputing1 -h ${rds_endpoint} -e "GRANT ALL PRIVILEGES ON wp2.* TO 'wp_user'@'%' WITH GRANT OPTION;"

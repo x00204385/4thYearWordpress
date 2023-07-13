@@ -57,3 +57,5 @@ resource "aws_db_instance" "wordpress-rds" {
   }
 
 }
+
+
