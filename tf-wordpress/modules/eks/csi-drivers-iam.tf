@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "csi" {
 
 resource "aws_iam_role" "eks_ebs_csi_driver" {
   assume_role_policy = data.aws_iam_policy_document.csi.json
-  name               = "eks-ebs-csi-driver"
+  name               = "eks-ebs-csi-driver-${var.suffix}"
 }
 
 resource "aws_iam_role_policy_attachment" "amazon_ebs_csi_driver" {
@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "efs-csi" {
 
 resource "aws_iam_role" "eks_efs_csi_driver" {
   assume_role_policy = data.aws_iam_policy_document.efs-csi.json
-  name               = "eks-efs-csi-driver"
+  name               = "eks-efs-csi-driver-${var.suffix}"
 }
 
 resource "aws_iam_role_policy_attachment" "amazon_efs_csi_driver" {

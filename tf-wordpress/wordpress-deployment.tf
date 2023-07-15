@@ -1,5 +1,9 @@
+locals {
+  wp_suffix = var.primary ? "eu" : "us"
+}
+
 resource "local_file" "wordpress-deployment" {
-  filename = "${path.module}/../wp/wordpress-deployment.yaml"
+  filename = "${path.module}/../wp/wordpress-deployment-${local.wp_suffix}.yaml"
   content  = <<EOF
 apiVersion: v1
 kind: Service

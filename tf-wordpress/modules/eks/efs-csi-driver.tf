@@ -33,7 +33,7 @@ resource "helm_release" "aws_efs_csi_driver" {
       create: true
       name: efs-csi-controller-sa
       annotations:
-        eks.amazonaws.com/role-arn: "arn:aws:iam::233945710018:role/eks-efs-csi-driver"
+        eks.amazonaws.com/role-arn: "arn:aws:iam::233945710018:role/eks-efs-csi-driver-${var.suffix}"
 EOF
   ]
 

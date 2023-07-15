@@ -35,3 +35,9 @@ variable "region" {
   type = string
   default = null
 }
+
+variable "suffix" {
+  description = "Suffix to use to differentiate resources in different regions"
+  type = string
+  default = null
+}

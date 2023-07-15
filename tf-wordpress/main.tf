@@ -48,7 +48,8 @@ module "eks" {
   region       = var.region
   subnets      = concat(local.public_subnets, local.private_subnets)
   node_subnets = local.public_subnets
-  key-pair     = "tud-aws"
+  key-pair     = var.key-pair
+  suffix       = var.primary ? "eu" : "us"
 }
 
 
@@ -60,9 +61,10 @@ module "asg" {
   lb_subnets  = local.public_subnets
   asg_subnets = local.public_subnets
 
-  key-pair = "tud-aws"
+  key-pair = var.key-pair
   security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.allow-http.id,
   aws_security_group.allow-https.id]
+  instance-ami = var.instance-ami
 
   depends_on = [aws_db_instance.wordpress-rds, aws_efs_file_system.wordpress-efs]
 

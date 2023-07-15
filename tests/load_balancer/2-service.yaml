@@ -3,7 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: nginx
-  namespace: 6-example
+  namespace: test-loadbalancer
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: external
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
