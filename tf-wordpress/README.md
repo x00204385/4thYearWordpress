@@ -1,30 +1,3 @@
-# Provisioning cluster
-
-
-```sh
-terraform apply -var-file ${region}.tfvars --auto-approve 
-aws eks update-kubeconfig --region ${region} --name demo
-```
-## Check that nodes are configured
-```sh
-kubectl get nodes -o wide
-```
-
-## Install the EFS CSI driver with helm
-```sh
-helm repo update aws-efs-csi-driver
-helm upgrade -i aws-efs-csi-driver aws-efs-csi-driver/aws-efs-csi-driver \
-    --namespace kube-system \
-    --set controller.serviceAccount.create=false \
-    --set controller.serviceAccount.name=efs-csi-controller-sa
-```
-
-### Create the K8S service account
-
-```sh
-kubectl apply -f k8s/efs-service-account.yaml
-```
-
 # Test the configuration of the cluster
 
 ## Static Provisioning
@@ -77,7 +50,7 @@ Also you can verify that data is written onto EFS filesystem:
 ```sh
 kubectl exec -ti efs-app -- tail -f /data/out
 ```
-# Load balancer provisioning
+## Load balancer provisioning
 
 ```sh
 kubectl apply -f load_balancer
@@ -92,15 +65,20 @@ kubectl get svc -n 6-example -o wide
 
 Visit the address pointed to by the service.
 
+## EBS Volume Provisioning (EFS CSI driver)
+
+```sh
+kubectl apply -f ebs-statefulset
+kubectl get pods -w
+kubectl get pvc,pv
+```
+Confirm that pod comes up and volume is created. Confirm volume using AWS console. 
+
 # Deploying Wordpress
 Based on [tutorial](https://aws.amazon.com/blogs/storage/running-wordpress-on-amazon-eks-with-amazon-efs-intelligent-tiering/)
 
--    Create access point in EFS volume
--    Add reference wordpress-deployment.yaml
--    Deploy the pods (MySQL and Wordpress)
-
 ```sh
-kubectl apply -f wordpress-deployment.yaml
+kubectl apply -f ../wp/wordpress-deployment-us.yaml
 ```
 
 
