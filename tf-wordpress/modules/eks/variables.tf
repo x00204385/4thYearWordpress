@@ -17,10 +17,12 @@ variable "instance-ami" {
 }
 
 variable "key-pair" {
+  description = "The public/private keypair used to access the EC2 instances created"
   default = "tud-aws"
 }
 
 variable "security_group_ids" {
+  description = "The security group IDs that will be applied to the EC2 instances in the node pool"
   default = []
 }
 
