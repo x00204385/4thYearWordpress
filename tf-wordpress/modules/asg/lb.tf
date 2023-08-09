@@ -3,9 +3,9 @@ resource "aws_lb" "tudproj-LB" {
   internal           = false
   load_balancer_type = "application"
   # security_groups    = [aws_security_group.allow-http.id, aws_security_group.allow-https.id]
-  security_groups    = var.security_group_ids
+  security_groups = var.security_group_ids
   # subnets            = [aws_subnet.public-subnet-1a.id, aws_subnet.public-subnet-1b.id]
-  subnets            = var.lb_subnets
+  subnets = var.lb_subnets
 
 
   enable_deletion_protection = false

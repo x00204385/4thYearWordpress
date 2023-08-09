@@ -7,26 +7,6 @@ resource "helm_release" "aws_efs_csi_driver" {
   version = "2.4.5"
   namespace = "kube-system"
 
-# values = [
-#     file("${path.module}/custom-values.yaml")
-#   ]
-
-  # set {
-  #   name  = "controller.serviceAccount.create"
-  #   value = "true"
-  # }
-
-  # set {
-  #   name  = "controller.serviceAccount.name"
-  #   value = "efs-csi-controller-sa"
-  # }
-
-  # set {
-  #   name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-  #   value = "arn:aws:iam::233945710018:role/eks-efs-csi-driver"
-  # }
-
-
   values = [<<EOF
   controller:
     serviceAccount:

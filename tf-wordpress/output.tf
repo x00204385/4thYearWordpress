@@ -39,8 +39,20 @@ output "cluster_name" {
   value       = module.eks.cluster_name
 }
 
-output "lb_endpoint" {
-  value = module.asg.lb_endpoint
+# output "lb_endpoint" {
+#   value = module.asg.lb_endpoint
+# }
+
+
+output "lb_zone_id" {
+  description = "The zone id used by the load balancer"
+  value       = module.asg.lb_zone_id
+}
+
+
+output "lb_dns_name" {
+  description = "The DNS name of the load balancer"
+  value       = module.asg.lb_dns_name
 }
 
 # output "efs_dns_name" {
