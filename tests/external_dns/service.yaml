@@ -11,6 +11,7 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: foo.iac4fun.com
     external-dns.alpha.kubernetes.io/aws-health-check-id: d6cd5341-8a8d-406c-ad13-7fb653cfc878
     external-dns.alpha.kubernetes.io/set-identifier: "myapp"
+    external-dns.alpha.kubernetes.io/ttl: "120"
 spec:
   ports:
     - port: 80

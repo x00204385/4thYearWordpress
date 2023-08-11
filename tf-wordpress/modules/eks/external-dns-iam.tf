@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "external_dns" {
 
 resource "aws_iam_role" "external_dns_iam_role" {
   assume_role_policy = data.aws_iam_policy_document.external_dns.json
-  name               = "external_dns_iam_role"
+  name               = "external_dns_iam_role-${var.suffix}"
 }
 
 resource "aws_iam_role_policy_attachment" "external_dns" {

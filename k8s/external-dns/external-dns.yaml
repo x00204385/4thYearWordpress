@@ -8,7 +8,7 @@ metadata:
   labels:
     app.kubernetes.io/name: external-dns
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::233945710018:role/external_dns_iam_role
+    eks.amazonaws.com/role-arn: arn:aws:iam::233945710018:role/external_dns_iam_role-eu
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
