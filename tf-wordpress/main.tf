@@ -5,7 +5,8 @@
 #
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "4.0.2"
+  # version = "4.0.2"
+  version = "5.1.1"
 
   name = "wp"
   cidr = var.vpc_cidr_block
@@ -48,6 +49,7 @@ module "eks" {
   region       = var.region
   subnets      = concat(local.public_subnets, local.private_subnets)
   node_subnets = local.public_subnets
+  # node_subnets = local.private_subnets
   key-pair     = var.key-pair
   suffix       = var.primary ? "eu" : "us"
 }

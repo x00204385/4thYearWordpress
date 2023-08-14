@@ -55,6 +55,10 @@ output "lb_dns_name" {
   value       = module.asg.lb_dns_name
 }
 
+output "eks_cluster_autoscaler_arn" {
+  value = module.eks.eks_cluster_autoscaler_arn
+}
+
 # output "efs_dns_name" {
 #   value = aws_efs_file_system.wordpress-efs.dns_name
 # }
