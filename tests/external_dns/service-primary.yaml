@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx
+  name: nginx-primary
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: external
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
@@ -9,8 +9,8 @@ metadata:
     external-dns.alpha.kubernetes.io/alias: "true"
     external-dns.alpha.kubernetes.io/aws-failover: "PRIMARY"
     external-dns.alpha.kubernetes.io/hostname: foo.iac4fun.com
-    external-dns.alpha.kubernetes.io/aws-health-check-id: d6cd5341-8a8d-406c-ad13-7fb653cfc878
-    external-dns.alpha.kubernetes.io/set-identifier: "myapp"
+    external-dns.alpha.kubernetes.io/aws-health-check-id: 36b5001e-0da5-46c2-874e-ab4ebce5771f
+    external-dns.alpha.kubernetes.io/set-identifier: "primary"
     external-dns.alpha.kubernetes.io/ttl: "120"
 spec:
   ports:
@@ -20,24 +20,3 @@ spec:
   type: LoadBalancer
   selector:
     app: nginx
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx
-spec:
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-        - image: nginx
-          name: nginx
-          ports:
-            - containerPort: 80
-              name: http

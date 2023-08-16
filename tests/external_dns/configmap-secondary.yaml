@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Welcome to NGINX</title>
+    </head>
+    <body>
+      <h1>This is the secondary cluster</h1>
+      <!-- Your custom content here -->
+    </body>
+    </html>

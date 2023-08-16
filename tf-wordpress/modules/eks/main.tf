@@ -32,7 +32,7 @@ resource "aws_eks_cluster" "demo" {
 
   vpc_config {
 
-  subnet_ids = var.subnets
+    subnet_ids = var.subnets
   }
 
   depends_on = [aws_iam_role_policy_attachment.demo_amazon_eks_cluster_policy]

@@ -8,7 +8,7 @@ metadata:
   labels:
     app.kubernetes.io/name: external-dns
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::233945710018:role/external_dns_iam_role-eu
+    eks.amazonaws.com/role-arn: arn:aws:iam::233945710018:role/external_dns_iam_role-us
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -68,6 +68,7 @@ spec:
         - --policy=sync # would prevent ExternalDNS from deleting any records, omit to enable full synchronization
         - --aws-zone-type=public # only look at public hosted zones (valid values are public, private or no value for both)
         - --registry=txt
-        - --txt-owner-id=Z099316731NAFXNYM6VVN
+        #- --txt-owner-id=Z099316731NAFXNYM6VVN
+        - --txt-owner-id=external-dns
       securityContext:
         fsGroup: 65534 # For ExternalDNS to be able to read Kubernetes and AWS token files

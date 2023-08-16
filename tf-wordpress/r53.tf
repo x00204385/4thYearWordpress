@@ -43,3 +43,18 @@ resource "aws_route53_health_check" "primary-health" {
     Name = "route53-primary-load-balancer"
   }
 }
+
+resource "aws_route53_health_check" "foo-health" {
+  count = var.primary ? 1 : 0 # Only need a health check for the primary zone
+  # fqdn              = "k8s-default-nginxpri-345c1a98fd-c58c4bacbe0cfdf7.elb.eu-west-1.amazonaws.com"
+  fqdn              = "k8s-default-nginxpri-99cc2b93af-bff5603586934981.elb.eu-west-1.amazonaws.com"
+  port              = 80
+  type              = "HTTP"
+  resource_path     = "/"
+  failure_threshold = "2"
+  request_interval  = "30"
+
+  tags = {
+    Name = "route53-primary-foo"
+  }
+}

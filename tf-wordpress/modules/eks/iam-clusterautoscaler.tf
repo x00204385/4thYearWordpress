@@ -16,46 +16,40 @@ data "aws_iam_policy_document" "eks_cluster_autoscaler_assume_role_policy" {
   }
 }
 
+#
+# https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/README.md
+#
+data "aws_iam_policy_document" "eks_cluster_autoscaler_policy" {
+  statement {
+    actions = [
+      "autoscaling:DescribeAutoScalingGroups",
+      "autoscaling:DescribeAutoScalingInstances",
+      "autoscaling:DescribeLaunchConfigurations",
+      "autoscaling:DescribeScalingActivities",
+      "autoscaling:DescribeTags",
+      "autoscaling:SetDesiredCapacity",
+      "autoscaling:TerminateInstanceInAutoScalingGroup",
+      "ec2:DescribeInstanceTypes",
+      "ec2:DescribeLaunchTemplateVersions",
+      "eks:DescribeNodegroup"
+    ]
+    resources = [
+      "*",
+    ]
+    effect = "Allow"
+  }
+}
+
+resource "aws_iam_policy" "eks_cluster_autoscaler" {
+  name   = "eks-cluster-autoscaler-${var.suffix}"
+  policy = data.aws_iam_policy_document.eks_cluster_autoscaler_policy.json
+}
 
 resource "aws_iam_role" "eks_cluster_autoscaler" {
   assume_role_policy = data.aws_iam_policy_document.eks_cluster_autoscaler_assume_role_policy.json
   name               = "eks-cluster-autoscaler-${var.suffix}"
 }
 
-resource "aws_iam_policy" "eks_cluster_autoscaler" {
-  name = "eks-cluster-autoscaler-${var.suffix}"
-
-  policy = jsonencode({
-    Statement = [
-      {
-        Action = [
-          "autoscaling:DescribeAutoScalingInstances",
-          "autoscaling:DescribeAutoScalingGroups",
-          "ec2:DescribeLaunchTemplateVersions",
-          "autoscaling:DescribeTags",
-          "autoscaling:DescribeLaunchConfigurations",
-          "ec2:DescribeInstanceTypes",
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-      {
-        Action = [
-          "autoscaling:SetDesiredCapacity",
-          "autoscaling:TerminateInstanceInAutoScalingGroup",
-        ]
-        Effect = "Allow"
-        Resource = "*"
-        Condition = {
-          "StringEquals" = {
-            "aws:ResourceTag/k8s.io/cluster-autoscaler/${local.cluster_name}": "owned"
-          }
-        }
-      }
-    ]
-    Version = "2012-10-17"
-  })
-}
 
 resource "aws_iam_role_policy_attachment" "eks_cluster_autoscaler_attach" {
   role       = aws_iam_role.eks_cluster_autoscaler.name

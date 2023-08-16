@@ -59,6 +59,17 @@ output "eks_cluster_autoscaler_arn" {
   value = module.eks.eks_cluster_autoscaler_arn
 }
 
+output "eks_wordpress_health_check" {
+  description = "The id of the health check used in DNS failover routing on EKS"
+  value = aws_route53_health_check.foo-health[0].id
+}
+
+output "elb_wordpress_health_check" {
+  description = "The id of the health check used in DNS failover routing on ASG/ELB"
+  value = aws_route53_health_check.primary-health[0].id
+}
+
+
 # output "efs_dns_name" {
 #   value = aws_efs_file_system.wordpress-efs.dns_name
 # }
